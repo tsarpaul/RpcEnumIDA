@@ -53,27 +53,7 @@ def parse_gdl(module_path, filename="out.gdl"):
             
     return gdl_by_node, gdl_by_func
 
-
-def parse_gdl_old(filename="out.gdl"):
-    gdl_by_node = {}
-    gdl_by_func = {}
-
-    with open(filename) as f:
-        raw_lines = f.readlines()
-    for line in raw_lines:
-        if line.startswith('node'):
-            node_id = node_id_re.search(line).group(1)
-            func_name = func_name_re.search(line).group(1)
-            gdl_by_node[node_id] = {"func": func_name, "edges": []}
-            gdl_by_func[func_name] = node_id
-        if line.startswith('edge'):
-            node_id = source_name_re.search(line).group(1)
-            target_node_id = target_name_re.search(line).group(1)
-            gdl_by_node[node_id]["edges"].append(target_node_id)
-            
-    return gdl_by_node, gdl_by_func
-    
-
+  
 def parse_function_from_gdl(gdl_by_node, gdl_by_func, node_id, depth):
     func_node = gdl_by_node[node_id]
     if depth == 1:
