@@ -118,6 +118,10 @@ for filename in os.listdir(results_dir):
             uuids_by_filenames[mod_filename] = set()
         uuids_by_filenames[mod_filename].add(uuid)
 
+# We create this temporary directory so IDA has somewhere to create IDB files
+if not os.path.exists('idbs'):
+    os.mkdir('idbs')
+
 filenames_graph = {}
 for filename, file_uuids in uuids_by_filenames.items():
     file_basename = os.path.basename(filename)
